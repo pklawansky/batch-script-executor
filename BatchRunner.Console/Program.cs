@@ -7,7 +7,7 @@ var files = LoadBatchScripts(directory);
 PromptBatchFileExecution(files, directory);
 
 
-
+// look into https://github.com/gui-cs/Terminal.Gui
 
 
 
@@ -29,7 +29,8 @@ List<string> LoadBatchScripts(string directory)
 {
     var files = Directory.EnumerateFiles(directory)
         .Where(x => x.ToLower().EndsWith(".bat"))
-        .Select(x => Path.GetFileName(x)).ToList();
+        .Select(x => Path.GetFileName(x))
+        .OrderBy(x => x).ToList();
     return files;
 }
 

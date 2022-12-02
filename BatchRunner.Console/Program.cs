@@ -39,7 +39,7 @@ void PromptBatchFileExecution(List<string> files, string directory)
     PrintBatchScriptList(files, directory);
     AppendText($"Type the index of the script you want to execute, (x) to exit:");
     var key = Console.ReadLine()!;
-    if (!int.TryParse(key, out int index) || index > files.Count - 1)
+    if (!int.TryParse(key, out int index) || index > files.Count || index < 1)
     {
         if (key.ToLower() == "x")
         {
@@ -49,7 +49,7 @@ void PromptBatchFileExecution(List<string> files, string directory)
         PromptBatchFileExecution(files, directory);
     }
 
-    ExecuteAsAdmin(files[index], directory);
+    ExecuteAsAdmin(files[index - 1], directory);
     //ExecuteBatchScript(files[index], directory);
     PromptBatchFileExecution(files, directory);
 }
@@ -59,7 +59,7 @@ void PrintBatchScriptList(List<string> files, string directory)
     AppendText($"""Found the following batch files in "{directory}":""");
     for (var i = 0; i < files.Count; i++)
     {
-        AppendText($"{i}. {files[i]}");
+        AppendText($"{i + 1}. {files[i]}");
     }
 }
 
